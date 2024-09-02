@@ -49,12 +49,12 @@ extern "C" {
 #endif
 
 /* API FUNCTIONS */
-extern int sogl_loadOpenGL();
-extern const char** sogl_getFailures();
+extern int sogl_loadOpenGL(void);
+extern const char** sogl_getFailures(void);
 
 /* MUST BE DEFINED PER PLATFORM */
 extern void* sogl_loadOpenGLFunction(const char* name);
-extern void sogl_cleanup();
+extern void sogl_cleanup(void);
 
 /* Internal macros */
 #define SOGL_TEST_VERSION(major, minor) major < SOGL_MAJOR_VERSION || major == SOGL_MAJOR_VERSION && minor <= SOGL_MINOR_VERSION
@@ -6013,7 +6013,7 @@ void *sogl_loadOpenGLFunction(const char *name) {
     return fn;
 }
 
-void sogl_cleanup() {
+void sogl_cleanup(void) {
     if (sogl_libHandle) {
         FreeLibrary(sogl_libHandle);
         sogl_libHandle = NULL;
@@ -6044,7 +6044,7 @@ void *sogl_loadOpenGLFunction(const char *name) {
     return fn;
 }
 
-void sogl_cleanup() {
+void sogl_cleanup(void) {
     if (sogl_libHandle) {
         dlclose(sogl_libHandle);
         sogl_libHandle = SOGL_NULL;
@@ -6420,7 +6420,7 @@ if (!name && failedLoads < SOGL_MAX_REPORTED_FAILURES) {\
 
 static const char* sogl_failedLoads[SOGL_MAX_REPORTED_FAILURES + 1];
 
-int sogl_loadOpenGL() {
+int sogl_loadOpenGL(void) {
     khronos_usize_t failedLoads = 0;
 
 #if SOGL_TEST_VERSION(1, 0)
@@ -6778,7 +6778,7 @@ SOGL_FUNCTIONS_OVR_multiview
 
 #undef SOGL_FUNCTION
 
-const char** sogl_getFailures() {
+const char** sogl_getFailures(void) {
     return sogl_failedLoads;
 }
 
