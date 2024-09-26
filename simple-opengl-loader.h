@@ -6003,7 +6003,7 @@ void *sogl_loadOpenGLFunction(const char *name) {
 
 	if (!sogl_libHandle) {
 		sogl_libHandle = LoadLibraryA("opengl32.dll");
-		wglGetProcAddress = (wglGetProcAddressFP) GetProcAddress(sogl_libHandle, "wglGetProcAddress");
+		wglGetProcAddress = (wglGetProcAddressFP) (void*) GetProcAddress(sogl_libHandle, "wglGetProcAddress");
 	}
     void *fn = (void *)wglGetProcAddress(name);
     if(fn == 0 || (fn == (void *) 0x1) || (fn == (void *) 0x2) || (fn == (void*) 0x3) || (fn == (void *) -1)) {
